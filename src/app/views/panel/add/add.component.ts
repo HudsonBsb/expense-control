@@ -23,9 +23,9 @@ export class AddComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  async add(): Promise<void> {
+  add(): void {
     const { name, value } = this.itemForm.value;
-    await addDoc(
+    addDoc(
       collection(this.firestore, 'items'),
       { date: new Date(), user: this.auth.currentUser?.email || 'Sistema', name, value });
     this.modal.close();
