@@ -19,6 +19,7 @@ import { AddComponent } from './views/panel/add/add.component';
 import { ListComponent } from './views/panel/list/list.component';
 import { CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
 import { CustomCurrencyMaskConfig } from './configs/currency.config';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -38,6 +39,7 @@ registerLocaleData(localePt, 'pt-BR');
     ReactiveFormsModule,
     CurrencyMaskModule,
     AuthModule,
+    FlexLayoutModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),

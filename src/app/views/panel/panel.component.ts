@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
 import { collectionData, Firestore } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { AuthCredential } from 'firebase/auth';
+import { Router } from '@angular/router';
 import { collection } from 'firebase/firestore';
 import { map, tap } from 'rxjs';
 import { AddComponent } from './add/add.component';
@@ -12,9 +13,9 @@ import { Model } from './list/list.component';
   templateUrl: './panel.component.html',
   styleUrls: ['./panel.component.scss']
 })
-export class PanelComponent implements OnInit {
+export class PanelComponent implements AfterViewChecked {
   sum: number = 0;
-  constructor(public dialog: MatDialog, private firestore: Firestore) {
+  constructor(public dialog: MatDialog, private firestore: Firestore, private auth: Auth, private route: Router) {
     const coll = collection(firestore, 'items');
     collectionData(coll).pipe(
       map(data => data as Model[]),
@@ -22,7 +23,12 @@ export class PanelComponent implements OnInit {
       .subscribe();
   }
 
-  ngOnInit(): void { }
+  ngAfterViewChecked(): void {
+    // setTimeout(() => {
+    //   if (!this.auth.currentUser)
+    //     this.route.navigate(['/login']);
+    // }, 500);
+  }
 
   openDialog() {
     const dialogRef = this.dialog.open(AddComponent);

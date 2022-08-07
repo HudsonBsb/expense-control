@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Auth, signInWithCustomToken } from '@angular/fire/auth';
+import { AfterViewChecked, Component } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { getAuth, signInWithCredential, signInWithEmailAndPassword } from "firebase/auth";
+import { browserLocalPersistence, Persistence, setPersistence, signInWithEmailAndPassword } from "firebase/auth";
 import { CookieService } from 'ngx-cookie-service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements AfterViewChecked {
   loginForm: FormGroup;
 
   constructor(private auth: Auth, private route: Router, private cookieService: CookieService) {
@@ -21,20 +20,33 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngAfterViewChecked(): void {
+    // setTimeout(() => {
+    //   if (this.auth.currentUser)
+    //     this.route.navigate(['/panel']);
+    // }, 500);
+  }
 
   login(): void {
     const { email, password } = this.loginForm.value;
+    if (!this.auth.currentUser)
+      setPersistence(this.auth, browserLocalPersistence)
+        .then(() => this.signIn(email, password))
+        .catch(err => console.log('Erro ao tentar setar persistencia AUTH => ', err))
+    else
+      this.route.navigate(['/panel']);
+  }
+
+  protected signIn(email: string, password: string) {
     signInWithEmailAndPassword(this.auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user as any;
-        this.cookieService.set(environment.firebase.apiKey, JSON.stringify(user['stsTokenManager'].accessToken));
-        this.route.navigate(['/panel']);
-      })
-      .catch((error) => {
-        console.log('Error => ', error);
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+      .then(() => this.route.navigate(['/panel']))
+      .catch((error) => console.log('Error => ', error));
+  }
+}
+
+class LocalPersistence implements Persistence {
+  type: 'SESSION' | 'LOCAL' | 'NONE';
+  constructor() {
+    this.type = 'LOCAL';
   }
 }

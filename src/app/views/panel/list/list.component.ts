@@ -7,6 +7,7 @@ export interface Model {
   user: string;
   date: Timestamp;
   value: number;
+  name: string;
 }
 
 @Component({

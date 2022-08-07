@@ -1,6 +1,6 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { Component, OnInit } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
+import { Auth, getAuth } from '@angular/fire/auth';
 import { Firestore } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { addDoc, collection } from 'firebase/firestore';
@@ -13,7 +13,7 @@ import { addDoc, collection } from 'firebase/firestore';
 export class AddComponent implements OnInit {
   itemForm: FormGroup;
 
-  constructor(private firestore: Firestore, private modal: DialogRef<AddComponent>, private auth: Auth) {
+  constructor(private auth: Auth, private firestore: Firestore, private modal: DialogRef<AddComponent>) {
     this.itemForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       value: new FormControl(0, [Validators.required, Validators.min(1)])

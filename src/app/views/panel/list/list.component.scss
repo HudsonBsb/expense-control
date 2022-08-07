@@ -1,3 +1,25 @@
 table {
     width: 100%;
+    display: table;
+    border-collapse: collapse;
+    text-indent: initial;
+    border-spacing: 2px;
+    box-sizing: border-box;
+    border-color: grey;
+    text-align: start;
+
+    tr {
+        border: solid 1px #ececec;
+        display: table-row;
+        vertical-align: inherit;
+        text-align: center;
+    }
+
+    button {
+        color: red;
+        background-color: transparent;
+        box-shadow: none;
+        width: max-content;
+        height: max-content;
+    }
 }
