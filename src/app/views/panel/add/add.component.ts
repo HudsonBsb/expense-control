@@ -4,7 +4,6 @@ import { Auth } from '@angular/fire/auth';
 import { Firestore } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { addDoc, collection } from 'firebase/firestore';
-import { v4 } from 'uuid';
 
 @Component({
   selector: 'app-add',
