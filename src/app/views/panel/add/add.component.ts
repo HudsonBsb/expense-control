@@ -1,9 +1,10 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { Component, OnInit } from '@angular/core';
 import { Auth, getAuth } from '@angular/fire/auth';
-import { Firestore } from '@angular/fire/firestore';
+import { collectionData, Firestore } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, CollectionReference, query } from 'firebase/firestore';
+import { Model } from '../list/list.component';
 
 @Component({
   selector: 'app-add',
@@ -22,10 +23,11 @@ export class AddComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  add(): void {
+  async add(): Promise<void> {
     const { name, value } = this.itemForm.value;
-    const coll = collection(this.firestore, 'items');
-    addDoc(coll, { date: new Date(), user: this.auth.currentUser?.email, name, value });
+    await addDoc(
+      collection(this.firestore, 'items'),
+      { date: new Date(), user: this.auth.currentUser?.email || 'Sistema', name, value });
     this.modal.close();
   }
 }

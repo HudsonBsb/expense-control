@@ -24,10 +24,10 @@ export class PanelComponent implements AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    // setTimeout(() => {
-    //   if (!this.auth.currentUser)
-    //     this.route.navigate(['/login']);
-    // }, 500);
+    setTimeout(() => {
+      if (!this.auth.currentUser)
+        this.route.navigate(['/login']);
+    }, 500);
   }
 
   openDialog() {
