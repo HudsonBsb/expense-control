@@ -1,0 +1,13 @@
+<div class="content">
+  <app-list></app-list>
+  <div class="flex">
+    <div>
+      <button (click)="openDialog()" mat-fab color="primary">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <div class="total">
+      {{sum | currency: 'BRL'}}
+    </div>
+  </div>
+</div>
