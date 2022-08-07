@@ -21,10 +21,10 @@ export class LoginComponent implements AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    // setTimeout(() => {
-    //   if (this.auth.currentUser)
-    //     this.route.navigate(['/panel']);
-    // }, 500);
+    setTimeout(() => {
+      if (this.auth.currentUser)
+        this.route.navigate(['/panel']);
+    }, 500);
   }
 
   login(): void {
