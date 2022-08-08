@@ -11,8 +11,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of items">
-        <td fxHide.lg="true" fxHide.md="true">{{getDate(item.date) | date: 'dd/mm/yy'}}</td>
-        <td fxHide.xs="true" fxHide.sm="true">{{getDate(item.date) | date: 'dd/mm/yy hh:MM:ss'}}</td>
+        <td fxHide.lg="true" fxHide.md="true">{{getDate(item.date) | date: 'dd/MM/yy'}}</td>
+        <td fxHide.xs="true" fxHide.sm="true">{{getDate(item.date) | date: 'dd/MM/yy hh:mm:ss'}}</td>
         <td fxHide.xs="true" fxHide.sm="true">{{item.user}}</td>
         <td>{{item.name}}</td>
         <td>{{item.value | currency:'BRL':''}}</td>

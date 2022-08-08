@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { collectionData, doc, Firestore, query } from '@angular/fire/firestore';
+import { collectionData, doc, Firestore, orderBy, query, where } from '@angular/fire/firestore';
 import { collection, CollectionReference, deleteDoc, Timestamp } from 'firebase/firestore';
 
 export interface Model {
@@ -21,7 +21,8 @@ export class ListComponent implements OnInit {
   constructor(private firestore: Firestore) {
     collectionData<Model>(
       query<Model>(
-        collection(this.firestore, 'items') as CollectionReference<Model>
+        collection(this.firestore, 'items') as CollectionReference<Model>,
+        orderBy('date')
         // where('id', '==', element.id)
       ), { idField: 'docId' }
     ).subscribe(model => this.items = model);
